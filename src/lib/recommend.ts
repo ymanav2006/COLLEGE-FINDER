@@ -2,6 +2,7 @@ import { CAREERS, getCareer } from "@/data/careers";
 import { INSTITUTIONS, getInstitution } from "@/data/colleges";
 import { COURSES, getCourse } from "@/data/courses";
 import { convertToINR } from "@/data/money";
+import { getCountry } from "@/data/countries";
 import { INDIAN_STATES } from "@/data/india-states";
 import { STREAM_MAP } from "@/data/streams";
 import { assessCourse, assessInstitution, type EligibilityResult } from "@/lib/eligibility";
@@ -314,7 +315,7 @@ export function recommendCourses(profile: StudentProfile | null, limit = 24): Ra
 
       if (profile.wantAbroad && course.studyAbroad.length > 0) {
         score += 6;
-        reasons.push({ kind: "location", text: `Recognised for further study abroad in ${course.studyAbroad.map((s) => s.country).slice(0, 3).join(", ")}.` });
+        reasons.push({ kind: "location", text: `Recognised for further study abroad in ${course.studyAbroad.map((s) => getCountry(s.country)?.name ?? s.country).slice(0, 3).join(", ")}.` });
       }
     } else {
       score += 5;

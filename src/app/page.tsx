@@ -9,12 +9,14 @@ import {
 } from "lucide-react";
 import { Btn, Section, Badge, ConfidenceBadge, Note, Stat } from "@/components/ui";
 import { STREAMS, CROSS_STREAM_OPTIONS } from "@/data/streams";
-import { INSTITUTIONS } from "@/data/colleges";
+import { INSTITUTIONS, ABROAD_INSTITUTIONS, INDIA_INSTITUTIONS } from "@/data/colleges";
+import { standingScore } from "@/lib/university-order";
+import type { Institution } from "@/lib/types";
 import { COURSES, COURSE_GROUPS } from "@/data/courses";
 import { CAREERS } from "@/data/careers";
 import { EXAMS } from "@/data/exams";
 import { SCHOLARSHIPS } from "@/data/scholarships";
-import { COUNTRIES } from "@/data/countries";
+import { COUNTRIES, getCountry } from "@/data/countries";
 import { SKILLS } from "@/data/skills";
 import { DATASET_VERIFIED_ON, CONFIDENCE_LABEL } from "@/data/sources";
 import { formatDate } from "@/lib/format";
@@ -410,39 +412,36 @@ export default function HomePage() {
         lede="Filters across location, academics, finances, institution type, career outcomes and campus life — plus a scorecard with 13 independent dimensions. No composite “best” score, because hiding the trade-offs inside one number is how bad decisions get made."
         actions={
           <>
-            <Btn href="/colleges">Browse {INSTITUTIONS.length} institutions</Btn>
+            <Btn href="/universities">Browse {INSTITUTIONS.length} universities</Btn>
+            <Btn href="/colleges" variant="secondary">
+              Open the college database
+            </Btn>
             <Btn href="/tools/compare" variant="secondary">
-              <Scale className="h-4 w-4" aria-hidden /> Compare 2–5 colleges
+              <Scale className="h-4 w-4" aria-hidden /> Compare 2–5
             </Btn>
           </>
         }
       >
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {INSTITUTIONS.slice(0, 4).map((i) => (
-            <Link key={i.id} href={`/colleges/${i.slug}`} className="card interactive-card p-5">
-              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-navy-500 dark:text-cyan-400">
-                <Building2 className="h-3.5 w-3.5" aria-hidden />
-                {i.type}
-              </div>
-              <h3 className="mt-3 line-clamp-2 text-[15px] font-semibold leading-snug text-ink dark:text-slate-50">
-                {i.name}
-              </h3>
-              <p className="mt-1 text-xs text-ink-muted">
-                {i.city}, {i.state}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {i.highlights.slice(0, 2).map((h) => (
-                  <span key={h} className="chip bg-surface-sunken text-[10px] text-ink-muted dark:bg-white/8 dark:text-slate-300">
-                    {h}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-4 text-xs text-ink-faint">
-                Tuition from {i.tuition.tuitionAnnual.value.toLocaleString("en-IN")} {i.tuition.currency}/yr ·{" "}
-                {i.courseIds.length} programmes
-              </p>
-            </Link>
-          ))}
+        <div>
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-ink-faint">
+            Universities outside India — shown first
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {topByStanding(ABROAD_INSTITUTIONS, 4).map((i) => (
+              <UniCard key={i.id} i={i} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-ink-faint">
+            Then, institutions in India
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {topByStanding(INDIA_INSTITUTIONS, 4).map((i) => (
+              <UniCard key={i.id} i={i} />
+            ))}
+          </div>
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -591,6 +590,9 @@ export default function HomePage() {
             <Btn href="/abroad" variant="secondary">
               <Globe2 className="h-4 w-4" aria-hidden /> 16 country guides
             </Btn>
+            <Btn href="/abroad/search" variant="secondary">
+              Search abroad
+            </Btn>
           </>
         }
       >
@@ -607,6 +609,34 @@ export default function HomePage() {
                 Checked {formatDate(c.lastVerified)}
                 <ConfidenceBadge confidence="reported" />
               </p>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              href: "/universities",
+              title: "Universities worldwide, abroad first",
+              body: `${ABROAD_INSTITUTIONS.length} universities outside India and ${INDIA_INSTITUTIONS.length} institutions in India — ordered with the formula printed in full, never as a "best" verdict.`,
+            },
+            {
+              href: "/abroad/2-2",
+              title: "2+2 — two years here, two years abroad",
+              body: "Split-degree pathways with the cost of both legs side by side, how credit transfer works, and where to verify the agreement before you pay.",
+            },
+            {
+              href: "/abroad/search",
+              title: "Search abroad opportunities",
+              body: "Universities, pathways, country guides, scholarships and language tests — one search box for everything international.",
+            },
+          ].map((x) => (
+            <Link key={x.href} href={x.href} className="card interactive-card group p-5">
+              <p className="font-semibold text-ink dark:text-slate-50">{x.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink-muted">{x.body}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-navy-600 dark:text-cyan-300">
+                Open <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden />
+              </span>
             </Link>
           ))}
         </div>
@@ -787,5 +817,48 @@ export default function HomePage() {
         </div>
       </section>
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Helpers                                                             */
+/* ------------------------------------------------------------------ */
+
+/** Strongest-first by the published ordering formula — see /universities. */
+function topByStanding(list: Institution[], n: number): Institution[] {
+  return [...list]
+    .sort((a, b) => standingScore(b) - standingScore(a) || a.name.localeCompare(b.name))
+    .slice(0, n);
+}
+
+function UniCard({ i }: { i: Institution }) {
+  const country = getCountry(i.countryId);
+  return (
+    <Link href={`/colleges/${i.slug}`} className="card interactive-card p-5">
+      <div className="flex items-center justify-between gap-2 text-[11px] font-semibold uppercase tracking-wide text-navy-500 dark:text-cyan-400">
+        <span className="flex items-center gap-1.5">
+          <Building2 className="h-3.5 w-3.5" aria-hidden />
+          {i.type}
+        </span>
+        <span className="text-ink-faint">{country?.flag} {country?.name ?? i.countryId}</span>
+      </div>
+      <h3 className="mt-3 line-clamp-2 text-[15px] font-semibold leading-snug text-ink dark:text-slate-50">
+        {i.name}
+      </h3>
+      <p className="mt-1 text-xs text-ink-muted">
+        {i.city}, {i.state}
+      </p>
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {i.highlights.slice(0, 2).map((h) => (
+          <span key={h} className="chip bg-surface-sunken text-[10px] text-ink-muted dark:bg-white/8 dark:text-slate-300">
+            {h}
+          </span>
+        ))}
+      </div>
+      <p className="mt-4 text-xs text-ink-faint">
+        Tuition from {i.tuition.tuitionAnnual.value.toLocaleString("en-IN")} {i.tuition.currency}/yr ·{" "}
+        {i.courseIds.length} programmes
+      </p>
+    </Link>
   );
 }

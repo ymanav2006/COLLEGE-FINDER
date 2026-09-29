@@ -132,6 +132,27 @@ export function buildIndex(): SearchDoc[] {
 /** Static planning guides and tool pages, so global search reaches them too. */
 const GUIDES: { id: string; title: string; subtitle: string; href: string; keywords: string[] }[] = [
   {
+    id: "universities",
+    title: "Universities worldwide — abroad first",
+    subtitle: "Every tracked university, ordered with the formula shown in full",
+    href: "/universities",
+    keywords: ["university", "universities", "worldwide", "global", "abroad first", "international universities", "order", "ranking", "best to worst"],
+  },
+  {
+    id: "twinning-2-2",
+    title: "2+2 & transfer pathways",
+    subtitle: "Two years in India, two years abroad — costs, credit transfer and risks",
+    href: "/abroad/2-2",
+    keywords: ["2+2", "2 2", "two plus two", "transfer", "articulation", "twinning", "split degree", "3+1", "1+3", "credit transfer", "study abroad pathway"],
+  },
+  {
+    id: "abroad-search",
+    title: "Search abroad opportunities",
+    subtitle: "Universities, pathways, countries, funding and tests in one search",
+    href: "/abroad/search",
+    keywords: ["abroad search", "international search", "overseas", "opportunities abroad", "study abroad options"],
+  },
+  {
     id: "higher-studies",
     title: "Higher studies planner",
     subtitle: "Master's, professional and research routes after a bachelor's degree",

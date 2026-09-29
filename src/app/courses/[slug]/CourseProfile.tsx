@@ -13,6 +13,7 @@ import { SaveButton } from "@/components/cards";
 import { getCourse, COURSE_GROUPS, LEVEL_LABEL, courseFallbackLabel } from "@/data/courses";
 import { getCareer } from "@/data/careers";
 import { getExam } from "@/data/exams";
+import { getCountry } from "@/data/countries";
 import { institutionsForCourse } from "@/data/colleges";
 import { streamLabel } from "@/data/streams";
 import { assessCourse } from "@/lib/eligibility";
@@ -253,7 +254,10 @@ export default function CourseProfile({ courseId }: { courseId: string }) {
                     <ul className="mt-3 space-y-2 text-sm text-ink-muted dark:text-slate-300">
                       {course.studyAbroad.slice(0, 5).map((s) => (
                         <li key={s.country}>
-                          <span className="font-medium text-ink dark:text-slate-200">{s.country}:</span> {s.note}
+                          <span className="font-medium text-ink dark:text-slate-200">
+                            {getCountry(s.country)?.name ?? s.country}:
+                          </span>{" "}
+                          {s.note}
                         </li>
                       ))}
                     </ul>

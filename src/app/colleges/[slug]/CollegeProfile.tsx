@@ -9,6 +9,7 @@ import {
   Btn, Badge, ConfidenceBadge, FactDisplay, Provenance, Note, PageHeader, WhyList,
 } from "@/components/ui";
 import { CompareToggle, SaveButton } from "@/components/cards";
+import { KnowMore } from "@/components/KnowMore";
 import { getInstitution } from "@/data/colleges";
 import { getCourse } from "@/data/courses";
 import { getSource } from "@/data/sources";
@@ -79,8 +80,12 @@ export default function CollegeProfile({ institutionId }: { institutionId: strin
       <PageHeader
         breadcrumb={
           <nav className="mb-5 flex flex-wrap items-center gap-2 text-xs text-ink-faint" aria-label="Breadcrumb">
+            <Link href="/universities" className="hover:text-navy-600 dark:hover:text-cyan-300">
+              Universities
+            </Link>
+            <span aria-hidden>/</span>
             <Link href="/colleges" className="hover:text-navy-600 dark:hover:text-cyan-300">
-              Colleges
+              All institutions
             </Link>
             <span aria-hidden>/</span>
             <span className="text-ink-muted">{institution.city}</span>
@@ -569,6 +574,11 @@ export default function CollegeProfile({ institutionId }: { institutionId: strin
               <FactDisplay fact={institution.accreditation} label="Status" compact />
             </div>
           </aside>
+        </div>
+
+        {/* --------------------- Know-more deep dive --------------------- */}
+        <div className="mx-auto mt-10 max-w-7xl">
+          <KnowMore institution={institution} />
         </div>
       </section>
     </>

@@ -30,8 +30,12 @@ VALUE  →  SOURCE  →  DATE  →  CONFIDENCE
 | **Stream → Career Explorer** | PCM, PCB, PCMB, Commerce, Arts, Vocational |
 | **Outside Your Stream** | *"What Else Can I Become?"* — direct / additional / alternate pathways |
 | **College database** | Filters, profiles, scorecards, comparison, affordability check |
+| **Universities worldwide** | Every university in one list — **outside India first, then India** — with the ordering formula printed in full (never a "best" verdict) |
+| **Know more about a university** | Five-tab deep dive on each profile: applying here, money & funding, life/city/campus, routes in, official links |
+| **2+2 & transfer pathways** | Study 2 years in India + 2 years abroad (plus 3+1, 2+1, 1+3, credit transfer) with both legs costed side by side |
+| **Search abroad opportunities** | One search across international universities, pathways, countries, scholarships, tests and courses |
 | **Course & Career explorers** | Pathways, "what can I do after this degree?" |
-| **Entrance exams** | India + international, dates, syllabus, prep resources |
+| **Entrance exams** | India + international (IELTS, TOEFL, TestDaF, JLPT, EJU, TOPIK, DELF…), dates, syllabus, prep resources |
 | **Scholarships & Study Abroad** | Country guides with last-verified dates + official sources |
 | **Planning tools** | Budget planner, 5-year map, decision matrix, deadline tracker, application tracker |
 | **Confusion solver** | *"I Don't Know What To Do"* → several possible pathways |

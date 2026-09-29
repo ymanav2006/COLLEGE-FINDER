@@ -40,12 +40,23 @@ const NAV: NavItem[] = [
       { label: "Higher studies planner", href: "/higher-studies", desc: "Master's, professional and research routes" },
     ],
   },
-  { label: "Colleges", href: "/colleges", icon: <GraduationCap className="h-4 w-4" aria-hidden /> },
+  {
+    label: "Universities",
+    href: "/universities",
+    icon: <GraduationCap className="h-4 w-4" aria-hidden />,
+    children: [
+      { label: "Universities worldwide", href: "/universities", desc: "Outside India first, then India — order explained" },
+      { label: "College database", href: "/colleges", desc: "Filters, eligibility and 13-dimension scorecards" },
+      { label: "Compare (2–5 way)", href: "/tools/compare", desc: "Side by side, with reasons attached" },
+    ],
+  },
   {
     label: "Study Abroad",
     href: "/abroad",
     icon: <Globe2 className="h-4 w-4" aria-hidden />,
     children: [
+      { label: "Search abroad opportunities", href: "/abroad/search", desc: "Universities, pathways, funding, tests" },
+      { label: "2+2 & transfer pathways", href: "/abroad/2-2", desc: "Two years in India, two years abroad" },
       { label: "16 country guides", href: "/abroad", desc: "Costs, visas, work rights, last-verified dates" },
       { label: "Compare countries", href: "/tools/compare?kind=country", desc: "Tuition, living, post-study options" },
     ],
@@ -626,9 +637,12 @@ function Footer() {
     {
       title: "Find & compare",
       links: [
+        { label: "Universities worldwide", href: "/universities" },
         { label: "College database", href: "/colleges" },
         { label: "Compare (2–5 way)", href: "/tools/compare" },
         { label: "Study abroad", href: "/abroad" },
+        { label: "2+2 & transfer pathways", href: "/abroad/2-2" },
+        { label: "Search abroad opportunities", href: "/abroad/search" },
         { label: "Scholarships", href: "/scholarships" },
         { label: "Search everything", href: "/search" },
         { label: "Saved items", href: "/saved" },

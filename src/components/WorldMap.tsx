@@ -68,7 +68,7 @@ export default function WorldMap({ activeSlug, onSelect, showIndiaMarkers = fals
   }, []);
 
   const indiaMark = projection([78.9, 20.6]);
-  const indiaCount = INSTITUTIONS.filter((i) => i.countryId === "India").length;
+  const indiaCount = INSTITUTIONS.filter((i) => i.countryId === "in").length;
 
   return (
     <div className="relative">
