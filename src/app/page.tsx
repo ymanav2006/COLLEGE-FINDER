@@ -529,6 +529,7 @@ export default function HomePage() {
             { icon: GitBranch, t: "Plan B Generator", href: "/tools/plan-b", d: "Realistic alternative routes for when the first choice doesn't work out." },
             { icon: TrendingUp, t: "What-If Explorer", href: "/tools/what-if", d: "Change one variable — marks, budget, location — and watch the options move." },
             { icon: MapIcon, t: "5-Year Map", href: "/roadmap", d: "Year-by-year milestones from Class 12 to career, master's or research." },
+            { icon: BookOpen, t: "Higher studies planner", href: "/higher-studies", d: "What comes after the bachelor's — master's, professional, research, medical and law routes." },
             { icon: HelpCircle, t: "Confusion Solver", href: "/confusion-solver", d: "For the days where you genuinely don't know what to do. Several routes, not one answer." },
           ].map((t) => (
             <Link key={t.t} href={t.href} className="card interactive-card group flex gap-4 p-5">

@@ -35,6 +35,7 @@ VALUE  →  SOURCE  →  DATE  →  CONFIDENCE
 | **Scholarships & Study Abroad** | Country guides with last-verified dates + official sources |
 | **Planning tools** | Budget planner, 5-year map, decision matrix, deadline tracker, application tracker |
 | **Confusion solver** | *"I Don't Know What To Do"* → several possible pathways |
+| **Higher studies planner** | Master's, professional, research, medical and law routes after a bachelor's |
 | **What-If / Plan B** | Change a variable, see alternative routes |
 | **Pathfinder AI** | Retrieval-grounded answers that always cite a source |
 | **Source transparency** | *"How We Know This"* + Verified / Cross-checked / Reported / Unverified labels |

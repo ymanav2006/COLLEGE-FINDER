@@ -1,18 +1,22 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState, useEffect } from "react";
 import { Search, CalendarDays, Filter } from "lucide-react";
-import { Btn, PageHeader, Section, EmptyState, Note, Badge, PageSkeleton } from "@/components/ui";
+import { Btn, PageHeader, Section, EmptyState, Note, Badge } from "@/components/ui";
 import { ExamCard } from "@/components/cards";
 import { EXAMS } from "@/data/exams";
 import { COUNTRIES } from "@/data/countries";
+import { useQueryParam } from "@/lib/use-query-param";
 
-function ExamsPage() {
-  const params = useSearchParams();
-  const [q, setQ] = useState(params.get("search") ?? "");
+export default function ExamsPage() {
+  const searchParam = useQueryParam("search");
+  const [q, setQ] = useState("");
   const [level, setLevel] = useState("all");
   const [country, setCountry] = useState("all");
+
+  useEffect(() => {
+    if (searchParam) setQ(searchParam);
+  }, [searchParam]);
 
   const levels = useMemo(() => Array.from(new Set(EXAMS.map((e) => e.level))), []);
 
@@ -99,13 +103,5 @@ function ExamsPage() {
         </div>
       </Section>
     </>
-  );
-}
-
-export default function ExamsRoute() {
-  return (
-    <Suspense fallback={<PageSkeleton />}>
-      <ExamsPage />
-    </Suspense>
   );
 }

@@ -113,9 +113,81 @@ export function buildIndex(): SearchDoc[] {
     });
   }
 
+  for (const g of GUIDES) {
+    docs.push({
+      type: "guide",
+      id: g.id,
+      slug: g.id,
+      title: g.title,
+      subtitle: g.subtitle,
+      href: g.href,
+      keywords: g.keywords,
+    });
+  }
+
   _index = docs;
   return docs;
 }
+
+/** Static planning guides and tool pages, so global search reaches them too. */
+const GUIDES: { id: string; title: string; subtitle: string; href: string; keywords: string[] }[] = [
+  {
+    id: "higher-studies",
+    title: "Higher studies planner",
+    subtitle: "Master's, professional and research routes after a bachelor's degree",
+    href: "/higher-studies",
+    keywords: ["masters", "mba", "mtech", "phd", "gate", "cat", "research", "postgraduate", "pg", "ca", "cfa", "b.ed", "llm", "md"],
+  },
+  {
+    id: "roadmap",
+    title: "5-Year Map",
+    subtitle: "Year-by-year milestones from Class 12 to career or further study",
+    href: "/roadmap",
+    keywords: ["roadmap", "timeline", "milestones", "plan", "year by year", "5 year"],
+  },
+  {
+    id: "methodology",
+    title: "Methodology & sources",
+    subtitle: "How every value, source, date and confidence label is produced",
+    href: "/methodology",
+    keywords: ["methodology", "sources", "confidence", "verified", "stale", "ranking", "how we know"],
+  },
+  {
+    id: "confusion-solver",
+    title: "Confusion Solver",
+    subtitle: "When you don't know what to do after Class 12",
+    href: "/confusion-solver",
+    keywords: ["confused", "don't know", "unsure", "lost", "what to do", "decision"],
+  },
+  {
+    id: "compare",
+    title: "Compare colleges",
+    subtitle: "Two to five institutions across thirteen dimensions",
+    href: "/tools/compare",
+    keywords: ["compare", "side by side", "scorecard", "13 dimensions", "versus"],
+  },
+  {
+    id: "budget",
+    title: "Budget planner",
+    subtitle: "Plan what the four years actually cost, year by year",
+    href: "/tools/budget",
+    keywords: ["budget", "cost", "fees", "expenses", "afford", "money"],
+  },
+  {
+    id: "maps",
+    title: "India & world maps",
+    subtitle: "Where the tracked institutions and destinations actually are",
+    href: "/maps",
+    keywords: ["map", "maps", "location", "where", "state", "distance"],
+  },
+  {
+    id: "faq",
+    title: "Frequently asked questions",
+    subtitle: "About the data, the tools and what this platform will never do",
+    href: "/faq",
+    keywords: ["faq", "questions", "help", "trust", "privacy"],
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /* Natural-language query parsing                                      */

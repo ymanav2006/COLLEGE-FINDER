@@ -267,7 +267,7 @@ export const HIGHER_STUDY_OPTIONS: HigherStudyOption[] = [
     family: "medical",
     duration: "3–7 years depending on country and specialty",
     whoFor: "MBBS graduates seeking to practise medicine abroad.",
-    requirement: "Licenring exams, English proficiency and eligibility verification for the target country.",
+    requirement: "Licensing exams, English proficiency and eligibility verification for the target country.",
     entrance: "USMLE (US) · PLAB (UK) · AMC (Australia) · country equivalents",
     costNote: "Exam, verification and relocation costs are substantial and usually self-funded.",
     outcome: "Specialist practice in the target country (subject to visa and match rules).",

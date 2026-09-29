@@ -1,19 +1,18 @@
 "use client";
 
-import { useMemo, useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState, useEffect } from "react";
 import { Search, Wallet, ExternalLink } from "lucide-react";
-import { Btn, PageHeader, Section, EmptyState, Note, Badge, ConfidenceBadge, PageSkeleton } from "@/components/ui";
+import { Btn, PageHeader, Section, EmptyState, Note, Badge, ConfidenceBadge } from "@/components/ui";
 import { ScholarshipRow, SaveButton } from "@/components/cards";
 import { SCHOLARSHIPS, SCHOLARSHIP_TYPES } from "@/data/scholarships";
 import { STREAMS } from "@/data/streams";
 import { useAppStore } from "@/lib/store";
+import { useQueryParam } from "@/lib/use-query-param";
 import { formatDate } from "@/lib/format";
 import type { StreamId } from "@/lib/types";
 
-function ScholarshipsPage() {
-  const params = useSearchParams();
-  const selectedSlug = params.get("s");
+export default function ScholarshipsPage() {
+  const selectedSlug = useQueryParam("s");
   const profile = useAppStore((s) => s.profile);
 
   const [q, setQ] = useState("");
@@ -176,13 +175,5 @@ function Mini({ label, value }: { label: string; value: string }) {
       <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-faint">{label}</p>
       <p className="mt-1 text-sm font-medium text-ink dark:text-slate-100">{value}</p>
     </div>
-  );
-}
-
-export default function ScholarshipsRoute() {
-  return (
-    <Suspense fallback={<PageSkeleton />}>
-      <ScholarshipsPage />
-    </Suspense>
   );
 }

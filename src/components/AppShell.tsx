@@ -37,6 +37,7 @@ const NAV: NavItem[] = [
       { label: "Careers", href: "/careers", desc: "What the work is actually like" },
       { label: "Entrance exams", href: "/exams", desc: "Dates, pattern, syllabus, prep" },
       { label: "Skills", href: "/skills", desc: "What to learn alongside your degree" },
+      { label: "Higher studies planner", href: "/higher-studies", desc: "Master's, professional and research routes" },
     ],
   },
   { label: "Colleges", href: "/colleges", icon: <GraduationCap className="h-4 w-4" aria-hidden /> },

@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState, useEffect } from "react";
 import { Search, SlidersHorizontal, X, BookOpen } from "lucide-react";
-import { Btn, Badge, PageHeader, Section, EmptyState, Note, PageSkeleton } from "@/components/ui";
+import { Btn, Badge, PageHeader, Section, EmptyState, Note } from "@/components/ui";
 import { CourseCard } from "@/components/cards";
 import { COURSES, COURSE_GROUPS, ALL_COURSE_LEVELS, LEVEL_LABEL, streamIds } from "@/data/courses";
 import { STREAM_MAP } from "@/data/streams";
 import { useAppStore } from "@/lib/store";
+import { useQueryParam } from "@/lib/use-query-param";
 import { recommendCourses, type Ranked } from "@/lib/recommend";
 import type { Course, Level, StreamId } from "@/lib/types";
 
@@ -23,20 +23,23 @@ const SORTS: { id: SortKey; label: string }[] = [
 
 const midCost = (c: Course) => (c.annualCost.value.minINR + c.annualCost.value.maxINR) / 2;
 
-function CoursesPage() {
-  const params = useSearchParams();
-  const groupParam = params.get("group");
+export default function CoursesPage() {
+  const groupParam = useQueryParam("group");
   const profile = useAppStore((s) => s.profile);
 
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<SortKey>("relevance");
-  const [group, setGroup] = useState<string>(groupParam ?? "all");
+  const [group, setGroup] = useState<string>("all");
   const [level, setLevel] = useState<Level | "all">("all");
   const [stream, setStream] = useState<StreamId | "all">("all");
   const [maxCost, setMaxCost] = useState(0);
   const [needsExam, setNeedsExam] = useState(false);
   const [eligibleOnly, setEligibleOnly] = useState(false);
   const [openFilters, setOpenFilters] = useState(false);
+
+  useEffect(() => {
+    if (groupParam) setGroup(groupParam);
+  }, [groupParam]);
 
   const ranked = useMemo(() => recommendCourses(profile, 500), [profile]);
 
@@ -253,13 +256,5 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
     >
       {children}
     </button>
-  );
-}
-
-export default function CoursesRoute() {
-  return (
-    <Suspense fallback={<PageSkeleton />}>
-      <CoursesPage />
-    </Suspense>
   );
 }

@@ -1,15 +1,15 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState, useEffect } from "react";
 import { Search, SlidersHorizontal, X, Building2 } from "lucide-react";
-import { Btn, Badge, PageHeader, Section, EmptyState, Note, PageSkeleton } from "@/components/ui";
+import { Btn, Badge, PageHeader, Section, EmptyState, Note } from "@/components/ui";
 import { InstitutionCard, CompareToggle } from "@/components/cards";
 import { INSTITUTIONS, INSTITUTION_TYPES } from "@/data/colleges";
 import { COURSES } from "@/data/courses";
 import { EXAMS } from "@/data/exams";
 import { INDIAN_STATES } from "@/data/india-states";
 import { useAppStore } from "@/lib/store";
+import { useQueryParam } from "@/lib/use-query-param";
 import { recommendInstitutions, type Ranked } from "@/lib/recommend";
 import { getCourse } from "@/data/courses";
 import type { Institution } from "@/lib/types";
@@ -45,9 +45,8 @@ const CAMPUS_FILTERS = [
 
 const dimScore = (i: Institution, id: string) => i.scorecard.find((d) => d.id === id)?.score ?? 0;
 
-function CollegesPage() {
-  const params = useSearchParams();
-  const courseParam = params.get("course");
+export default function CollegesPage() {
+  const courseParam = useQueryParam("course");
 
   const profile = useAppStore((s) => s.profile);
   const [q, setQ] = useState("");
@@ -57,7 +56,11 @@ function CollegesPage() {
   const [types, setTypes] = useState<string[]>([]);
   const [tuitionBand, setTuitionBand] = useState(0);
   const [exam, setExam] = useState<string>("all");
-  const [course, setCourse] = useState<string>(courseParam ?? "all");
+  const [course, setCourse] = useState<string>("all");
+
+  useEffect(() => {
+    if (courseParam) setCourse(courseParam);
+  }, [courseParam]);
   const [features, setFeatures] = useState<string[]>([]);
   const [minAcademics, setMinAcademics] = useState(0);
   const [eligibilityOnly, setEligibilityOnly] = useState(false);
@@ -414,13 +417,5 @@ function Removable({ label, onRemove }: { label: string; onRemove: () => void })
     >
       {label} <X className="h-3 w-3" aria-hidden />
     </button>
-  );
-}
-
-export default function CollegesRoute() {
-  return (
-    <Suspense fallback={<PageSkeleton />}>
-      <CollegesPage />
-    </Suspense>
   );
 }

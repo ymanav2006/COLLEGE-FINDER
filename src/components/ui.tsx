@@ -347,31 +347,6 @@ export function Skeleton({ className = "" }: { className?: string }) {
   return <div className={`skeleton ${className}`} aria-hidden />;
 }
 
-/**
- * Fallback used while a route that reads search params suspends during
- * prerender. Keeps the layout stable instead of flashing a blank page.
- */
-export function PageSkeleton() {
-  return (
-    <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8" aria-busy="true" aria-live="polite">
-      <p className="sr-only">Loading…</p>
-      <Skeleton className="h-3 w-40" />
-      <Skeleton className="mt-4 h-9 w-full max-w-xl" />
-      <Skeleton className="mt-4 h-4 w-full max-w-2xl" />
-      <div className="mt-8 flex flex-wrap gap-2">
-        <Skeleton className="h-9 w-28 rounded-full" />
-        <Skeleton className="h-9 w-32 rounded-full" />
-        <Skeleton className="h-9 w-24 rounded-full" />
-      </div>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-44 w-full rounded-3xl" />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 /* Explainability: "Why you're seeing this"                            */
 /* ------------------------------------------------------------------ */

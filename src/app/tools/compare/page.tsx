@@ -1,15 +1,15 @@
 "use client";
 
-import { useMemo, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search, X, Plus, Scale, AlertTriangle, Download } from "lucide-react";
-import { Btn, Badge, ConfidenceBadge, PageHeader, Section, EmptyState, Note, WhyList, PageSkeleton } from "@/components/ui";
+import { Btn, Badge, ConfidenceBadge, PageHeader, Section, EmptyState, Note, WhyList } from "@/components/ui";
 import { SaveButton } from "@/components/cards";
 import { INSTITUTIONS, getInstitution } from "@/data/colleges";
 import { COUNTRIES } from "@/data/countries";
 import { getCourse } from "@/data/courses";
 import { useAppStore } from "@/lib/store";
+import { useQueryParam } from "@/lib/use-query-param";
 import { assessInstitution } from "@/lib/eligibility";
 import { convertToINR } from "@/data/money";
 import { formatINR, formatDate } from "@/lib/format";
@@ -36,9 +36,8 @@ const RATES: Record<string, number> = {
 };
 const inr = (v: number, c: string) => Math.round(v * (RATES[c] ?? 1));
 
-function ComparePage() {
-  const params = useSearchParams();
-  const kind = params.get("kind") === "country" ? "country" : "college";
+export default function ComparePage() {
+  const kind = useQueryParam("kind") === "country" ? "country" : "college";
 
   const compare = useAppStore((s) => s.compare);
   const toggleCompare = useAppStore((s) => s.toggleCompare);
@@ -490,13 +489,5 @@ function CountryCompare() {
         </div>
       </Section>
     </>
-  );
-}
-
-export default function CompareRoute() {
-  return (
-    <Suspense fallback={<PageSkeleton />}>
-      <ComparePage />
-    </Suspense>
   );
 }
