@@ -187,7 +187,7 @@ export interface Career {
 /* Institutions                                                        */
 /* ------------------------------------------------------------------ */
 
-export type InstitutionType = "public" | "private" | "deemed" | "autonomous" | "government-aided";
+export type InstitutionType = "public" | "private" | "deemed" | "autonomous" | "government" | "government-aided";
 
 export type ScorecardDimensionId =
   | "academics"
@@ -222,7 +222,7 @@ export interface PlacementReport {
   averageSalaryINR?: number;
   highestSalaryINR?: number;
   placementRatePercent?: number;
-  recruiters: string[];
+  recruiters?: string[];
   methodology: string;
   sourceId: string;
   confidence: Confidence;

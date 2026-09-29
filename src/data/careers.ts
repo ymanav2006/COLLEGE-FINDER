@@ -221,7 +221,7 @@ export const CAREERS: Career[] = [
     industries: ["Banking", "Technology", "Telecom", "Government", "Healthcare"],
     progression: ["SOC analyst → Security engineer → Security architect → CISO"],
     higherStudies: ["M.Tech in information security", "MSc Cybersecurity", "MBA"],
-    certifications: ["CompTIA Security+", CEH-style credentials, cloud security certifications, OSCP for offensive roles"],
+    certifications: ["CompTIA Security+", "CEH-style credentials", "Cloud security certifications", "OSCP for offensive roles"],
     international: "Severe talent shortage reported across most markets — one of the more accessible global tech routes.",
     trends: ["Cloud security", "Identity and access management", "AI-enabled threat detection", "Regulation-driven demand"],
     relatedCareerIds: ["software-engineer", "data-scientist"],

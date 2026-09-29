@@ -108,6 +108,22 @@
   }
 }
 
+:root {
+  --map-ocean-a: #d7e6fb;
+  --map-ocean-b: #eaf2ff;
+  --map-land: #c8d3e8;
+  --map-stroke: #ffffff;
+  --map-label-halo: rgba(255, 255, 255, 0.92);
+}
+
+.dark {
+  --map-ocean-a: #081226;
+  --map-ocean-b: #0d1c3d;
+  --map-land: #22304f;
+  --map-stroke: #0b1224;
+  --map-label-halo: rgba(7, 13, 33, 0.92);
+}
+
 @layer base {
   * {
     border-color: var(--color-hairline);

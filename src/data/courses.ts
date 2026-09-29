@@ -74,7 +74,6 @@ export const COURSES: Course[] = [
       { country: "ca", note: "MSc/ MASc routes with research funding options." },
     ],
     demandAreas: ["Software engineering", "Cloud & platform", "Security", "Applied AI"],
-    demandAreasNote: undefined,
     collegeIds: [],
   }),
   course({
