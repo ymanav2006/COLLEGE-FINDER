@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ---- Brand: deep navy / blue (primary) ---- */
+  --color-navy-950: #050b1f;
+  --color-navy-900: #081233;
+  --color-navy-800: #0c1c4d;
+  --color-navy-700: #122a70;
+  --color-navy-600: #1a3a97;
+  --color-navy-500: #2450c7;
+  --color-navy-400: #4a76e8;
+  --color-navy-300: #7ea1f5;
+  --color-navy-200: #b6c9fb;
+  --color-navy-100: #dde6fe;
+  --color-navy-50: #f0f4ff;
+
+  /* ---- Secondary: violet ---- */
+  --color-violet-950: #1d0b3a;
+  --color-violet-900: #2c105c;
+  --color-violet-800: #3d1a83;
+  --color-violet-700: #5125ab;
+  --color-violet-600: #6a34d4;
+  --color-violet-500: #8753ec;
+  --color-violet-400: #a47cf2;
+  --color-violet-300: #c4a8f8;
+  --color-violet-200: #e0ccfc;
+  --color-violet-100: #f1e8fe;
+  --color-violet-50: #f9f5ff;
+
+  /* ---- Accent: cyan / teal ---- */
+  --color-cyan-950: #002b30;
+  --color-cyan-900: #00474f;
+  --color-cyan-800: #006a76;
+  --color-cyan-700: #008b9c;
+  --color-cyan-600: #00a8bd;
+  --color-cyan-500: #00c6de;
+  --color-cyan-400: #3ad9ec;
+  --color-cyan-300: #7ce8f5;
+  --color-cyan-200: #b8f2fa;
+  --color-cyan-100: #dcf9fd;
+  --color-cyan-50: #eefcfe;
+
+  /* ---- Semantic signals ---- */
+  --color-signal-green: #12a150;
+  --color-signal-green-soft: #e6f7ee;
+  --color-signal-amber: #b57400;
+  --color-signal-amber-soft: #fdf3e0;
+  --color-signal-red: #d93b3b;
+  --color-signal-red-soft: #fdeaea;
+  --color-signal-blue: #2450c7;
+  --color-signal-blue-soft: #eaf0ff;
+
+  /* ---- Surfaces ---- */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f7fb;
+  --color-surface-sunken: #eef1f7;
+  --color-ink: #0b1020;
+  --color-ink-muted: #4e5a72;
+  --color-ink-faint: #8791a6;
+  --color-hairline: #e4e8f0;
+
+  --color-page-dark: #070d21;
+  --color-surface-dark: #0c142e;
+  --color-surface-dark-2: #121c3d;
+  --color-hairline-dark: #1f2c55;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --radius-card: 18px;
+
+  --shadow-soft: 0 1px 2px rgba(8, 18, 51, 0.04), 0 8px 24px -12px rgba(8, 18, 51, 0.16);
+  --shadow-lift: 0 2px 6px rgba(8, 18, 51, 0.06), 0 22px 44px -22px rgba(8, 18, 51, 0.35);
+  --shadow-glow: 0 0 0 1px rgba(36, 80, 199, 0.12), 0 18px 50px -24px rgba(36, 80, 199, 0.55);
+
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-hairline);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dark body {
+    background: var(--color-page-dark);
+    color: #e8ecf7;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-navy-500) 22%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-navy-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  .dark :focus-visible {
+    outline-color: var(--color-cyan-400);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c8cfdc;
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #aab4c8;
+    background-clip: content-box;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #2b3a6b;
+    background-clip: content-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .glass {
+    background: color-mix(in oklab, #ffffff 70%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid color-mix(in oklab, #ffffff 55%, var(--color-hairline));
+  }
+  .dark .glass {
+    background: color-mix(in oklab, #0c142e 74%, transparent);
+    border-color: var(--color-hairline-dark);
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(100deg, #2450c7 0%, #6a34d4 46%, #00a8bd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-hero-mesh {
+    background:
+      radial-gradient(1100px 560px at 12% -8%, rgba(36, 80, 199, 0.16), transparent 60%),
+      radial-gradient(900px 520px at 88% 6%, rgba(106, 52, 212, 0.14), transparent 62%),
+      radial-gradient(760px 460px at 50% 100%, rgba(0, 168, 189, 0.12), transparent 60%),
+      linear-gradient(180deg, #f7f9ff 0%, #ffffff 72%);
+  }
+  .dark .bg-hero-mesh {
+    background:
+      radial-gradient(1100px 560px at 12% -8%, rgba(36, 80, 199, 0.34), transparent 60%),
+      radial-gradient(900px 520px at 88% 6%, rgba(106, 52, 212, 0.26), transparent 62%),
+      radial-gradient(760px 460px at 50% 100%, rgba(0, 168, 189, 0.16), transparent 60%),
+      linear-gradient(180deg, #070d21 0%, #070d21 72%);
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .dark .card {
+    background: var(--color-surface-dark);
+    border-color: var(--color-hairline-dark);
+  }
+
+  .interactive-card {
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.22s ease;
+  }
+  .interactive-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+    border-color: color-mix(in oklab, var(--color-navy-400) 45%, var(--color-hairline));
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    line-height: 1;
+    padding: 0.4rem 0.7rem;
+    font-weight: 550;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-surface-sunken) 25%,
+      color-mix(in oklab, #ffffff 70%, var(--color-surface-sunken)) 37%,
+      var(--color-surface-sunken) 63%
+    );
+    background-size: 400% 100%;
+    animation: var(--animate-shimmer);
+    border-radius: 10px;
+  }
+  .dark .skeleton {
+    background: linear-gradient(90deg, #131d40 25%, #1b2853 37%, #131d40 63%);
+    background-size: 400% 100%;
+  }
+
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--color-hairline) 78%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-hairline) 78%, transparent) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+  .dark .hairline-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--color-hairline-dark) 78%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--color-hairline-dark) 78%, transparent) 1px, transparent 1px);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .section-pad {
+    padding-block: clamp(3.25rem, 7vw, 6.5rem);
+  }
+
+  .prose-quiet p {
+    color: var(--color-ink-muted);
+    line-height: 1.75;
+  }
+  .dark .prose-quiet p {
+    color: #a9b4cd;
+  }
+}
